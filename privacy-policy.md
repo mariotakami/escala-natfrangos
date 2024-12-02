@@ -1,7 +1,7 @@
 # Política de Privacidade
 
 ## Introdução
-Bem-vindo ao [Nome do Aplicativo]. Valorizamos sua privacidade e estamos comprometidos em proteger as informações relacionadas ao uso do aplicativo.
+Bem-vindo ao escala-natgrangos. Valorizamos sua privacidade e estamos comprometidos em proteger as informações relacionadas ao uso do aplicativo.
 
 ## Dados Coletados
 Nosso aplicativo coleta apenas **dados de interação**, como:
