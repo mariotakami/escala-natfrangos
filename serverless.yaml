@@ -1,0 +1,59 @@
+service: aws-lambda-facebook
+frameworkVersion: "4"
+provider:
+  name: aws
+  stage: prod
+  runtime: python3.11
+  region: us-east-1
+  deploymentBucket:
+    name: escala-in10
+  environment:
+    ACCESS_TOKEN: ${env:ACCESS_TOKEN}
+    IG_USER_ID: ${env:IG_USER_ID}
+  iam:
+    role:
+      statements:
+        # Allow functions to list all buckets
+        - Effect: Allow
+          Action: 's3:ListBucket'
+          Resource: '*'
+        # Allow functions to read/write objects in a bucket
+        - Effect: Allow
+          Action:
+            - 's3:GetObject'
+            - 's3:PutObject'
+          Resource:
+            - arn:aws:s3:::escala-in10/*
+functions:
+  verifyToken:
+    handler: handler.verify_token
+    events:
+      - httpApi:
+          path: /facebook
+          method: get
+
+  handleStoryInsights:
+    handler: handler.handle_story_insights
+    events:
+      - httpApi:
+          path: /facebook
+          method: post
+
+  processarStoriesEInsights:
+    handler: storys.processar_stories_e_insights
+    events:
+      - schedule:
+          rate: rate(1 hour)
+          enabled: true
+package:
+  exclude:
+    - .venv/**
+    - node_modules/**
+
+plugins:
+  - serverless-python-requirements
+
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
