@@ -1,0 +1,510 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "The AWS CloudFormation template for this Serverless application",
+  "Resources": {
+    "VerifyTokenLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/aws-lambda-facebook-prod-verifyToken"
+      }
+    },
+    "HandleStoryInsightsLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/aws-lambda-facebook-prod-handleStoryInsights"
+      }
+    },
+    "ProcessarStoriesEInsightsLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/aws-lambda-facebook-prod-processarStoriesEInsights"
+      }
+    },
+    "IamRoleLambdaExecution": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": {
+              "Fn::Join": [
+                "-",
+                [
+                  "aws-lambda-facebook",
+                  "prod",
+                  "lambda"
+                ]
+              ]
+            },
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:CreateLogGroup",
+                    "logs:TagResource"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/aws-lambda-facebook-prod*:*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/aws-lambda-facebook-prod*:*:*"
+                    }
+                  ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:ListBucket"
+                  ],
+                  "Resource": "*"
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:PutObject"
+                  ],
+                  "Resource": "arn:aws:s3:::escala-in10/*"
+                }
+              ]
+            }
+          }
+        ],
+        "Path": "/",
+        "RoleName": {
+          "Fn::Join": [
+            "-",
+            [
+              "aws-lambda-facebook",
+              "prod",
+              {
+                "Ref": "AWS::Region"
+              },
+              "lambdaRole"
+            ]
+          ]
+        }
+      }
+    },
+    "VerifyTokenLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "escala-in10",
+          "S3Key": "serverless/aws-lambda-facebook/prod/1733436780244-2024-12-05T22:13:00.244Z/aws-lambda-facebook.zip"
+        },
+        "Handler": "handler.verify_token",
+        "Runtime": "python3.11",
+        "FunctionName": "aws-lambda-facebook-prod-verifyToken",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "ACCESS_TOKEN": "EAAUfj5DEo8sBO2iPp8PLTDfPAvqjufHFK281WvZArO6ndtKbQZCj2R9PZBT8kL6t5Wk1uYwYb2OWY3tSv7NNQ3QZAfOB7jB79uQu3ZADfJXlatYLQDM9UiZAGhZBcJnV3nNP9bYSP8X8vpZAQvX0p8RE0yEW1Oz9if2s4hnQOiXtULoss0I1BwC0rbcVHamxPq1ZBsZAHXH3UZD",
+            "IG_USER_ID": "17841408393946189"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "VerifyTokenLogGroup"
+      ]
+    },
+    "HandleStoryInsightsLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "escala-in10",
+          "S3Key": "serverless/aws-lambda-facebook/prod/1733436780244-2024-12-05T22:13:00.244Z/aws-lambda-facebook.zip"
+        },
+        "Handler": "handler.handle_story_insights",
+        "Runtime": "python3.11",
+        "FunctionName": "aws-lambda-facebook-prod-handleStoryInsights",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "ACCESS_TOKEN": "EAAUfj5DEo8sBO2iPp8PLTDfPAvqjufHFK281WvZArO6ndtKbQZCj2R9PZBT8kL6t5Wk1uYwYb2OWY3tSv7NNQ3QZAfOB7jB79uQu3ZADfJXlatYLQDM9UiZAGhZBcJnV3nNP9bYSP8X8vpZAQvX0p8RE0yEW1Oz9if2s4hnQOiXtULoss0I1BwC0rbcVHamxPq1ZBsZAHXH3UZD",
+            "IG_USER_ID": "17841408393946189"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "HandleStoryInsightsLogGroup"
+      ]
+    },
+    "ProcessarStoriesEInsightsLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "escala-in10",
+          "S3Key": "serverless/aws-lambda-facebook/prod/1733436780244-2024-12-05T22:13:00.244Z/aws-lambda-facebook.zip"
+        },
+        "Handler": "storys.processar_stories_e_insights",
+        "Runtime": "python3.11",
+        "FunctionName": "aws-lambda-facebook-prod-processarStoriesEInsights",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "ACCESS_TOKEN": "EAAUfj5DEo8sBO2iPp8PLTDfPAvqjufHFK281WvZArO6ndtKbQZCj2R9PZBT8kL6t5Wk1uYwYb2OWY3tSv7NNQ3QZAfOB7jB79uQu3ZADfJXlatYLQDM9UiZAGhZBcJnV3nNP9bYSP8X8vpZAQvX0p8RE0yEW1Oz9if2s4hnQOiXtULoss0I1BwC0rbcVHamxPq1ZBsZAHXH3UZD",
+            "IG_USER_ID": "17841408393946189"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "ProcessarStoriesEInsightsLogGroup"
+      ]
+    },
+    "VerifyTokenLambdaVersiono1Nh4tvkon7GAPwzRXhUJDg6hVuJKpZRwbL4UoCdlE": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "VerifyTokenLambdaFunction"
+        },
+        "CodeSha256": "BzprwHGo0p0bG9G03NHXe80NWLDmBCxTo5V8HDyOwSs="
+      }
+    },
+    "HandleStoryInsightsLambdaVersionx0aTh0RJvZak2m81mrvl7DdzZyekEISF3wUhueyY0BY": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "HandleStoryInsightsLambdaFunction"
+        },
+        "CodeSha256": "BzprwHGo0p0bG9G03NHXe80NWLDmBCxTo5V8HDyOwSs="
+      }
+    },
+    "ProcessarStoriesEInsightsLambdaVersionLWlm35ISxPRONJHx06R8c8O2JoP9Qp4a4nmy9Yjhuhw": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "ProcessarStoriesEInsightsLambdaFunction"
+        },
+        "CodeSha256": "BzprwHGo0p0bG9G03NHXe80NWLDmBCxTo5V8HDyOwSs="
+      }
+    },
+    "ProcessarStoriesEInsightsEventsRuleSchedule1": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "ScheduleExpression": "rate(1 hour)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "ProcessarStoriesEInsightsLambdaFunction",
+                "Arn"
+              ]
+            },
+            "Id": "processarStoriesEInsightsSchedule"
+          }
+        ]
+      }
+    },
+    "ProcessarStoriesEInsightsLambdaPermissionEventsRuleSchedule1": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ProcessarStoriesEInsightsLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "ProcessarStoriesEInsightsEventsRuleSchedule1",
+            "Arn"
+          ]
+        }
+      }
+    },
+    "HttpApi": {
+      "Type": "AWS::ApiGatewayV2::Api",
+      "Properties": {
+        "Name": "prod-aws-lambda-facebook",
+        "ProtocolType": "HTTP"
+      }
+    },
+    "HttpApiStage": {
+      "Type": "AWS::ApiGatewayV2::Stage",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "StageName": "$default",
+        "AutoDeploy": true,
+        "DefaultRouteSettings": {
+          "DetailedMetricsEnabled": false
+        }
+      }
+    },
+    "VerifyTokenLambdaPermissionHttpApi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "VerifyTokenLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "HttpApi"
+              },
+              "/*"
+            ]
+          ]
+        }
+      }
+    },
+    "HttpApiIntegrationVerifyToken": {
+      "Type": "AWS::ApiGatewayV2::Integration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "VerifyTokenLambdaFunction",
+            "Arn"
+          ]
+        },
+        "PayloadFormatVersion": "2.0",
+        "TimeoutInMillis": 30000
+      }
+    },
+    "HttpApiRouteGetFacebook": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "RouteKey": "GET /facebook",
+        "Target": {
+          "Fn::Join": [
+            "/",
+            [
+              "integrations",
+              {
+                "Ref": "HttpApiIntegrationVerifyToken"
+              }
+            ]
+          ]
+        }
+      },
+      "DependsOn": "HttpApiIntegrationVerifyToken"
+    },
+    "HandleStoryInsightsLambdaPermissionHttpApi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "HandleStoryInsightsLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "HttpApi"
+              },
+              "/*"
+            ]
+          ]
+        }
+      }
+    },
+    "HttpApiIntegrationHandleStoryInsights": {
+      "Type": "AWS::ApiGatewayV2::Integration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "HandleStoryInsightsLambdaFunction",
+            "Arn"
+          ]
+        },
+        "PayloadFormatVersion": "2.0",
+        "TimeoutInMillis": 30000
+      }
+    },
+    "HttpApiRoutePostFacebook": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "RouteKey": "POST /facebook",
+        "Target": {
+          "Fn::Join": [
+            "/",
+            [
+              "integrations",
+              {
+                "Ref": "HttpApiIntegrationHandleStoryInsights"
+              }
+            ]
+          ]
+        }
+      },
+      "DependsOn": "HttpApiIntegrationHandleStoryInsights"
+    }
+  },
+  "Outputs": {
+    "ServerlessDeploymentBucketName": {
+      "Value": "escala-in10",
+      "Export": {
+        "Name": "sls-aws-lambda-facebook-prod-ServerlessDeploymentBucketName"
+      }
+    },
+    "VerifyTokenLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "VerifyTokenLambdaVersiono1Nh4tvkon7GAPwzRXhUJDg6hVuJKpZRwbL4UoCdlE"
+      },
+      "Export": {
+        "Name": "sls-aws-lambda-facebook-prod-VerifyTokenLambdaFunctionQualifiedArn"
+      }
+    },
+    "HandleStoryInsightsLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "HandleStoryInsightsLambdaVersionx0aTh0RJvZak2m81mrvl7DdzZyekEISF3wUhueyY0BY"
+      },
+      "Export": {
+        "Name": "sls-aws-lambda-facebook-prod-HandleStoryInsightsLambdaFunctionQualifiedArn"
+      }
+    },
+    "ProcessarStoriesEInsightsLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "ProcessarStoriesEInsightsLambdaVersionLWlm35ISxPRONJHx06R8c8O2JoP9Qp4a4nmy9Yjhuhw"
+      },
+      "Export": {
+        "Name": "sls-aws-lambda-facebook-prod-ProcessarStoriesEInsightsLambdaFunctionQualifiedArn"
+      }
+    },
+    "HttpApiId": {
+      "Description": "Id of the HTTP API",
+      "Value": {
+        "Ref": "HttpApi"
+      },
+      "Export": {
+        "Name": "sls-aws-lambda-facebook-prod-HttpApiId"
+      }
+    },
+    "HttpApiUrl": {
+      "Description": "URL of the HTTP API",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "HttpApi"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix"
+            }
+          ]
+        ]
+      },
+      "Export": {
+        "Name": "sls-aws-lambda-facebook-prod-HttpApiUrl"
+      }
+    }
+  }
+}
