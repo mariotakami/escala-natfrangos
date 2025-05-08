@@ -118,7 +118,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "escala-in10",
-          "S3Key": "serverless/aws-lambda-facebook/prod/1733436780244-2024-12-05T22:13:00.244Z/aws-lambda-facebook.zip"
+          "S3Key": "serverless/aws-lambda-facebook/prod/1746714592046-2025-05-08T14:29:52.046Z/aws-lambda-facebook.zip"
         },
         "Handler": "handler.verify_token",
         "Runtime": "python3.11",
@@ -127,8 +127,9 @@
         "Timeout": 6,
         "Environment": {
           "Variables": {
-            "ACCESS_TOKEN": "EAAUfj5DEo8sBO2iPp8PLTDfPAvqjufHFK281WvZArO6ndtKbQZCj2R9PZBT8kL6t5Wk1uYwYb2OWY3tSv7NNQ3QZAfOB7jB79uQu3ZADfJXlatYLQDM9UiZAGhZBcJnV3nNP9bYSP8X8vpZAQvX0p8RE0yEW1Oz9if2s4hnQOiXtULoss0I1BwC0rbcVHamxPq1ZBsZAHXH3UZD",
-            "IG_USER_ID": "17841408393946189"
+            "ACCESS_TOKEN": "EAAUfj5DEo8sBO8xs5moCRbxetC2zHyharhw0hCxKM9jQVffjWwCT7Eaki16CkwnG29myr29gwwab64Ar9eHS8MoMILbREfaJAvB2GPZALWxOsMyIojPaBTDmx2WFHqWURZBdCIZBWksrnwZCbaHpDX0aiya0ZAvozcu5NaH5GPPleFZCZA0GhKUhQI4r34DYLELPZA8nV6QZD",
+            "IG_USER_ID": "17841408393946189",
+            "S3_BUCKET_NAME": "escala-in10"
           }
         },
         "Role": {
@@ -147,7 +148,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "escala-in10",
-          "S3Key": "serverless/aws-lambda-facebook/prod/1733436780244-2024-12-05T22:13:00.244Z/aws-lambda-facebook.zip"
+          "S3Key": "serverless/aws-lambda-facebook/prod/1746714592046-2025-05-08T14:29:52.046Z/aws-lambda-facebook.zip"
         },
         "Handler": "handler.handle_story_insights",
         "Runtime": "python3.11",
@@ -156,8 +157,9 @@
         "Timeout": 6,
         "Environment": {
           "Variables": {
-            "ACCESS_TOKEN": "EAAUfj5DEo8sBO2iPp8PLTDfPAvqjufHFK281WvZArO6ndtKbQZCj2R9PZBT8kL6t5Wk1uYwYb2OWY3tSv7NNQ3QZAfOB7jB79uQu3ZADfJXlatYLQDM9UiZAGhZBcJnV3nNP9bYSP8X8vpZAQvX0p8RE0yEW1Oz9if2s4hnQOiXtULoss0I1BwC0rbcVHamxPq1ZBsZAHXH3UZD",
-            "IG_USER_ID": "17841408393946189"
+            "ACCESS_TOKEN": "EAAUfj5DEo8sBO8xs5moCRbxetC2zHyharhw0hCxKM9jQVffjWwCT7Eaki16CkwnG29myr29gwwab64Ar9eHS8MoMILbREfaJAvB2GPZALWxOsMyIojPaBTDmx2WFHqWURZBdCIZBWksrnwZCbaHpDX0aiya0ZAvozcu5NaH5GPPleFZCZA0GhKUhQI4r34DYLELPZA8nV6QZD",
+            "IG_USER_ID": "17841408393946189",
+            "S3_BUCKET_NAME": "escala-in10"
           }
         },
         "Role": {
@@ -176,7 +178,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "escala-in10",
-          "S3Key": "serverless/aws-lambda-facebook/prod/1733436780244-2024-12-05T22:13:00.244Z/aws-lambda-facebook.zip"
+          "S3Key": "serverless/aws-lambda-facebook/prod/1746714592046-2025-05-08T14:29:52.046Z/aws-lambda-facebook.zip"
         },
         "Handler": "storys.processar_stories_e_insights",
         "Runtime": "python3.11",
@@ -185,8 +187,9 @@
         "Timeout": 6,
         "Environment": {
           "Variables": {
-            "ACCESS_TOKEN": "EAAUfj5DEo8sBO2iPp8PLTDfPAvqjufHFK281WvZArO6ndtKbQZCj2R9PZBT8kL6t5Wk1uYwYb2OWY3tSv7NNQ3QZAfOB7jB79uQu3ZADfJXlatYLQDM9UiZAGhZBcJnV3nNP9bYSP8X8vpZAQvX0p8RE0yEW1Oz9if2s4hnQOiXtULoss0I1BwC0rbcVHamxPq1ZBsZAHXH3UZD",
-            "IG_USER_ID": "17841408393946189"
+            "ACCESS_TOKEN": "EAAUfj5DEo8sBO8xs5moCRbxetC2zHyharhw0hCxKM9jQVffjWwCT7Eaki16CkwnG29myr29gwwab64Ar9eHS8MoMILbREfaJAvB2GPZALWxOsMyIojPaBTDmx2WFHqWURZBdCIZBWksrnwZCbaHpDX0aiya0ZAvozcu5NaH5GPPleFZCZA0GhKUhQI4r34DYLELPZA8nV6QZD",
+            "IG_USER_ID": "17841408393946189",
+            "S3_BUCKET_NAME": "escala-in10"
           }
         },
         "Role": {
@@ -200,34 +203,34 @@
         "ProcessarStoriesEInsightsLogGroup"
       ]
     },
-    "VerifyTokenLambdaVersiono1Nh4tvkon7GAPwzRXhUJDg6hVuJKpZRwbL4UoCdlE": {
+    "VerifyTokenLambdaVersionzGD3tsj4yhjDV9bzqacHnVaP51DGEvz4IPCWEOeP4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "VerifyTokenLambdaFunction"
         },
-        "CodeSha256": "BzprwHGo0p0bG9G03NHXe80NWLDmBCxTo5V8HDyOwSs="
+        "CodeSha256": "Qw//1ma1qzEZRNNcdTVp12U7xa/xmBr61Tj5um2sJZ8="
       }
     },
-    "HandleStoryInsightsLambdaVersionx0aTh0RJvZak2m81mrvl7DdzZyekEISF3wUhueyY0BY": {
+    "HandleStoryInsightsLambdaVersionUsyq7372LJa36y2mdVtWqLbjKFlef9jCBFIqfIeI": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "HandleStoryInsightsLambdaFunction"
         },
-        "CodeSha256": "BzprwHGo0p0bG9G03NHXe80NWLDmBCxTo5V8HDyOwSs="
+        "CodeSha256": "Qw//1ma1qzEZRNNcdTVp12U7xa/xmBr61Tj5um2sJZ8="
       }
     },
-    "ProcessarStoriesEInsightsLambdaVersionLWlm35ISxPRONJHx06R8c8O2JoP9Qp4a4nmy9Yjhuhw": {
+    "ProcessarStoriesEInsightsLambdaVersionSWpcTBT6M5SLrzaY3TqVKybgm8I2x4zlJSU8XNKDE0": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ProcessarStoriesEInsightsLambdaFunction"
         },
-        "CodeSha256": "BzprwHGo0p0bG9G03NHXe80NWLDmBCxTo5V8HDyOwSs="
+        "CodeSha256": "Qw//1ma1qzEZRNNcdTVp12U7xa/xmBr61Tj5um2sJZ8="
       }
     },
     "ProcessarStoriesEInsightsEventsRuleSchedule1": {
@@ -448,7 +451,7 @@
     "VerifyTokenLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "VerifyTokenLambdaVersiono1Nh4tvkon7GAPwzRXhUJDg6hVuJKpZRwbL4UoCdlE"
+        "Ref": "VerifyTokenLambdaVersionzGD3tsj4yhjDV9bzqacHnVaP51DGEvz4IPCWEOeP4"
       },
       "Export": {
         "Name": "sls-aws-lambda-facebook-prod-VerifyTokenLambdaFunctionQualifiedArn"
@@ -457,7 +460,7 @@
     "HandleStoryInsightsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HandleStoryInsightsLambdaVersionx0aTh0RJvZak2m81mrvl7DdzZyekEISF3wUhueyY0BY"
+        "Ref": "HandleStoryInsightsLambdaVersionUsyq7372LJa36y2mdVtWqLbjKFlef9jCBFIqfIeI"
       },
       "Export": {
         "Name": "sls-aws-lambda-facebook-prod-HandleStoryInsightsLambdaFunctionQualifiedArn"
@@ -466,7 +469,7 @@
     "ProcessarStoriesEInsightsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ProcessarStoriesEInsightsLambdaVersionLWlm35ISxPRONJHx06R8c8O2JoP9Qp4a4nmy9Yjhuhw"
+        "Ref": "ProcessarStoriesEInsightsLambdaVersionSWpcTBT6M5SLrzaY3TqVKybgm8I2x4zlJSU8XNKDE0"
       },
       "Export": {
         "Name": "sls-aws-lambda-facebook-prod-ProcessarStoriesEInsightsLambdaFunctionQualifiedArn"

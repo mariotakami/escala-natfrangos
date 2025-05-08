@@ -40,6 +40,7 @@ def salvar_no_s3(story_id, insights):
         # Adicionar o horário de extração dos insights
         extraction_time = datetime.utcnow().isoformat() + 'Z'  # Formato ISO 8601 com 'Z' indicando UTC
         insights_with_timestamp = {
+            'story_id': story_id,
             'extraction_time': extraction_time,
             'insights': insights
         }
@@ -55,7 +56,7 @@ def salvar_no_s3(story_id, insights):
     except Exception as e:
         print(f"Erro ao salvar insights no S3: {e}")
 
-def processar_stories_e_insights():
+def processar_stories_e_insights(event,context):
     try:
         stories = obter_stories()
         if not stories:
@@ -68,5 +69,3 @@ def processar_stories_e_insights():
     except requests.exceptions.RequestException as e:
         print(f"Erro ao obter dados do Instagram: {e}")
 
-if __name__ == "__main__":
-    processar_stories_e_insights()
